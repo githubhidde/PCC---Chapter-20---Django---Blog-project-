@@ -1,0 +1,12 @@
+{% extends "blogs/base.html" %}
+
+{% block page_header %}
+  <div class="jumbotron">
+    <h1 class="display-3">Hidde's Blog</h1>
+
+    <p class="lead">Create your own blog entries, discuss them and basically create a list of topics, you can always refer to. Viewing blog posts is accesible to anyone. However registering is necessary if you want to post comments, topics and according entries yourself. </p>
+
+    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+        role="button">Register &raquo;</a>
+  </div>
+{% endblock page_header %}
