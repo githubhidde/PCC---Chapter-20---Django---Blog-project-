@@ -1,4 +1,3 @@
 blog_env/
-ENV_DIR
 __pycache__/
 *.sqlite3
