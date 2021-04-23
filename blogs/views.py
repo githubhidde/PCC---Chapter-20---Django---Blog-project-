@@ -48,7 +48,7 @@ def new_blog(request):
 @login_required
 def new_entry(request, blog_id):
 	"""Add a new entry for a particular topic."""
-	blog = BlogPost.objects.get(id=blog_id)
+	blog = get_object_or_404(BlogPost, id=blog_id)
 	# Check if the entry actually belongs to the owner
 	check_topic_owner(blog.owner, request)
 	if request.method != 'POST':
@@ -70,7 +70,7 @@ def new_entry(request, blog_id):
 @login_required
 def edit_entry(request, entry_id):
 	"""Edit an existing entry."""
-	entry = Entry.objects.get(id=entry_id)
+	entry = get_object_or_404(Entry, id=entry_id)
 	blog = entry.blog
 	# Check if the entry actually belongs to the owner
 	check_topic_owner(blog.owner, request)
