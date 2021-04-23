@@ -1,8 +1,8 @@
 from .models import BlogPost, Entry
 from .forms import BlogForm, EntryForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
+from django.http import Http404
 
 def index(request):
 	"""The home page for Blog."""
@@ -16,7 +16,7 @@ def blogs(request):
 
 def blog(request, blog_id):
 	"""Show a single blog and all its entries."""
-	blog = BlogPost.objects.get(id=blog_id)
+	blog = get_object_or_404(BlogPost, id=blog_id)
 	entries = blog.entry_set.order_by('-date_added')
 	context = {'blog': blog, 'entries': entries}
 	return render(request, 'blogs/blog.html', context)
@@ -24,7 +24,7 @@ def blog(request, blog_id):
 def check_topic_owner(owner, request):
 	# A general permissions check --> helper method
 	if owner != request.user:
-		raise PermissionDenied
+		raise Http404
 
 @login_required
 def new_blog(request):
